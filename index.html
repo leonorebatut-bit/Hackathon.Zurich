@@ -91,7 +91,7 @@ hist:[['Vegetarian lunch','Cafeteria',4,'Today, 12:35'],['Reusable mug','Coffee 
 res:[{room:ROOMS[1],day:0,time:'14:00'}],redeemed:[['Public transport day ticket',300,'12 Oct']],ses:null,sess:1,cool:3,meal:null,mug:0,bot:0};
 const booked=(r,d,t)=>S.res.some(x=>x.room.id==r&&x.day==d&&x.time==t)||((r*7+d*3+TIMES.indexOf(t)*5)%4==0);
 const past=(d,t)=>d==0&&t<'13:40';
-const REW=[['Cute dog picture 🐶',100],['Public transport day ticket',300],['Printing credit CHF 10',600],['Student-fee reduction CHF 25',1500],['Semester pass discount CHF 100',3500]];
+const REW=[['Cute dog picture 🐶',10],['Free coffee',200],['Printing credit CHF 10',600],['Student-fee reduction CHF 25',1500],['Free meal at the cafeteria',600]];
 const ACH=[['First session','Complete your first study-room session',1,1],['Cool head','5 sessions with the thermostat at 25°C or below',5,'cool'],['Last out, lights off','10 departures with everything switched off',10,'out'],['Own mug','Use a reusable mug 10 times',10,'mug'],['Plant-forward','Choose 15 vegetarian meals',15,'veg'],['Clean tray','Return 10 near-empty trays',10,'tray']];
 S.out=7;S.veg=11;S.tray=6;
 function toast(m,p){const t=document.getElementById('toast');t.innerHTML=`<span>${m}</span><b>${p>0?'+':'−'}${Math.abs(p)}</b>`;t.className='s';clearTimeout(toast.t);toast.t=setTimeout(()=>t.className='',2200)}
