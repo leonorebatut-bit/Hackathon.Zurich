@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Verde Campus</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f1ea;--sf:#fbfaf6;--ink:#1c2a24;--mu:#6b766f;--ln:#dcd8cc;--g:#1f5c43;--gl:#dbe8df;--lo:#b4532a;--ll:#f2dfd4;--on:#fff;color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#101613;--sf:#18211c;--ink:#e8ece6;--mu:#93a098;--ln:#2b3630;--g:#6fbf95;--gl:#1f3329;--lo:#e0865a;--ll:#3a2519;--on:#0f1a14;color-scheme:dark}}
+:root[data-theme=dark]{--bg:#101613;--sf:#18211c;--ink:#e8ece6;--mu:#93a098;--ln:#2b3630;--g:#6fbf95;--gl:#1f3329;--lo:#e0865a;--ll:#3a2519;--on:#0f1a14;color-scheme:dark}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font:15px/1.4 'Instrument Sans',system-ui,sans-serif;display:flex;justify-content:center;align-items:center}
+.ph{width:100%;max-width:410px;height:100%;max-height:840px;background:var(--bg);display:flex;flex-direction:column;position:relative;overflow:hidden;padding-top:env(safe-area-inset-top,0px)}
+@media(min-width:500px){.ph{height:min(840px,96vh);border:1px solid var(--ln);border-radius:28px}}
+main{flex:1;overflow-y:auto;padding:4px 20px 24px}
+.serif,.big{font-family:Fraunces,Georgia,serif}
+h1{font:600 24px Fraunces,Georgia,serif;letter-spacing:-.01em}
+h2{font:600 12px 'Instrument Sans',sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--mu);margin:22px 0 8px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 20px 8px}
+.mu{color:var(--mu);font-size:13px}.sm{font-size:13px}
+nav{display:flex;border-top:1px solid var(--ln);background:var(--sf);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{flex:1;background:none;border:0;color:var(--mu);padding:10px 0 9px;font:500 11px inherit;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+nav button.on{color:var(--g)}
+svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.row{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--ln)}
+.row:last-child{border-bottom:0}.grow{flex:1;min-width:0}
+.b{font-weight:600}
+.pl{color:var(--g);font-weight:600}.mi{color:var(--lo);font-weight:600}
+.btn{border:0;border-radius:10px;padding:12px 16px;font:600 14px inherit;font-family:inherit;background:var(--g);color:var(--on);cursor:pointer;width:100%;transition:transform .1s}
+.btn:active{transform:scale(.98)}
+.btn.2{background:none;border:1px solid var(--ln);color:var(--ink)}
+.btn.s{width:auto;padding:8px 12px;font-size:13px}
+.btn[disabled]{opacity:.4;cursor:default}
+.box{background:var(--sf);border:1px solid var(--ln);border-radius:12px;padding:14px}
+.bar{height:6px;background:var(--ln);border-radius:3px;overflow:hidden;margin-top:6px}.bar i{display:block;height:100%;background:var(--g);transition:width .6s}
+.seg{display:flex;border:1px solid var(--ln);border-radius:10px;padding:3px;margin:6px 0 12px}
+.seg button{flex:1;border:0;background:none;padding:8px;border-radius:8px;font:500 13px inherit;font-family:inherit;color:var(--mu);cursor:pointer}
+.seg button.on{background:var(--g);color:var(--on)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--ln);background:var(--sf);color:var(--ink);border-radius:8px;padding:8px 11px;font:500 13px inherit;font-family:inherit;cursor:pointer}
+.chip.on{background:var(--g);color:var(--on);border-color:var(--g)}.chip[disabled]{opacity:.35;text-decoration:line-through;cursor:default}
+.tag{font-size:11px;border:1px solid var(--ln);border-radius:5px;padding:1px 6px;color:var(--mu)}
+.tg{width:46px;height:27px;border-radius:14px;background:var(--ln);border:0;position:relative;cursor:pointer;transition:background .2s}
+.tg::after{content:'';position:absolute;top:3px;left:3px;width:21px;height:21px;border-radius:50%;background:#fff;transition:left .2s}
+.tg.on{background:var(--g)}.tg.on::after{left:22px}
+.sc{width:30px;height:30px;border-radius:7px;display:grid;place-items:center;font:600 14px Fraunces,serif;color:#fff}
+.back{background:none;border:0;color:var(--g);font:600 14px inherit;font-family:inherit;cursor:pointer;padding:6px 0}
+#toast{position:absolute;left:16px;right:16px;top:calc(env(safe-area-inset-top,0px) + 12px);background:var(--ink);color:var(--bg);border-radius:12px;padding:12px 14px;display:flex;justify-content:space-between;gap:10px;transform:translateY(-130%);transition:transform .35s;z-index:9}
+#toast.s{transform:none}
+.pulse{width:120px;height:120px;border-radius:50%;border:2px solid var(--g);margin:26px auto;display:grid;place-items:center;color:var(--g);animation:p 1.4s infinite}
+@keyframes p{0%{box-shadow:0 0 0 0 var(--gl)}100%{box-shadow:0 0 0 28px transparent}}
+.fade{animation:f .25s}@keyframes f{from{opacity:0;transform:translateY(6px)}}
+.qr{width:150px;height:150px;margin:14px auto;background:repeating-conic-gradient(var(--ink) 0 25%,var(--sf) 0 50%) 0 0/20px 20px;border:8px solid var(--sf);outline:1px solid var(--ln)}
+input[type=range]{width:100%;accent-color:var(--g)}
+</style></head><body>
+<div class="ph"><div id="toast"></div><div id="app" style="display:flex;flex-direction:column;flex:1;min-height:0"></div></div>
+<script>
+const IC={home:'<path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z"/>',award:'<circle cx="12" cy="9" r="6"/><path d="M8.5 14l-1.5 7 5-3 5 3-1.5-7"/>',door:'<path d="M5 21V4h10v17M3 21h18M12 12h.01"/>',cafe:'<path d="M4 8h13v6a5 5 0 01-5 5H9a5 5 0 01-5-5zM17 9h2a2 2 0 010 5h-2M7 2v3M11 2v3"/>'};
+const ico=n=>`<svg class="i" viewBox="0 0 24 24">${IC[n]}</svg>`;
+const DAYS=['Today','Tue 10 Nov','Wed 11 Nov'],TIMES=['09:00','10:00','11:00','14:00','15:00','16:00','17:00'];
+const ROOMS=[
+{id:1,n:'Room B2.14',loc:'Library Building · Floor 2',cap:4,eq:['Monitor','Whiteboard']},
+{id:2,n:'Room B2.18',loc:'Library Building · Floor 2',cap:6,eq:['Monitor','Projector','Whiteboard']},
+{id:3,n:'Room S0.03',loc:'Science Hall · Ground floor',cap:8,eq:['Projector','Monitor']},
+{id:4,n:'Silent Pod 3B',loc:'Library Building · Floor 3',cap:1,eq:['Monitor']},
+{id:5,n:'Room E1.07',loc:'Engineering · Floor 1',cap:10,eq:['Projector','Monitor','Whiteboard']}];
+const S={tab:'home',rv:'list',seg:'rooms',day:0,room:null,time:null,pts:1240,series:[820,860,905,890,960,1010,1065,1100,1150,1190,1240],
+hist:[['Vegetarian lunch','Cafeteria',4,'Today, 12:35'],['Reusable mug','Coffee machine',2,'Today, 09:02'],['Study room session B2.14','Study rooms',5,'Mon 9:10'],['Plastic bottle purchased','Vending',-2,'Sun 16:20'],['Bottle returned','Recycling',2,'Sun 16:31'],['Tray returned, 5% leftover','Cafeteria',4,'Fri 13:05']],
+res:[{room:ROOMS[1],day:0,time:'14:00'}],redeemed:[['Public transport day ticket',300,'12 Oct']],ses:null,sess:1,cool:3,meal:null,mug:0,bot:0};
+const booked=(r,d,t)=>S.res.some(x=>x.room.id==r&&x.day==d&&x.time==t)||((r*7+d*3+TIMES.indexOf(t)*5)%4==0);
+const past=(d,t)=>d==0&&t<'13:40';
+const REW=[['Free cafeteria lunch',400],['Public transport day ticket',300],['Printing credit CHF 10',600],['Student-fee reduction CHF 25',1500],['Semester pass discount CHF 100',3500]];
+const ACH=[['First session','Complete your first study-room session',1,1],['Cool head','5 sessions with the thermostat at 25°C or below',5,'cool'],['Last out, lights off','10 departures with everything switched off',10,'out'],['Own mug','Use a reusable mug 10 times',10,'mug'],['Plant-forward','Choose 15 vegetarian meals',15,'veg'],['Clean tray','Return 10 near-empty trays',10,'tray']];
+S.out=7;S.veg=11;S.tray=6;
+function toast(m,p){const t=document.getElementById('toast');t.innerHTML=`<span>${m}</span><b>${p>0?'+':'−'}${Math.abs(p)}</b>`;t.className='s';clearTimeout(toast.t);toast.t=setTimeout(()=>t.className='',2200)}
+function add(l,c,p,w='Just now'){S.pts+=p;S.hist.unshift([l,c,p,w]);S.series.push(S.pts);}
+const fp=p=>`<span class="${p>=0?'pl':'mi'}">${p>=0?'+':'−'}${Math.abs(p)}</span>`;
+function chart(){const a=S.series.slice(-12),mn=Math.min(...a)-30,mx=Math.max(...a)+30,W=330,H=90;
+const pts=a.map((v,i)=>[i*W/(a.length-1),H-(v-mn)/(mx-mn)*H]);const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+return `<svg viewBox="0 0 ${W} ${H+6}" style="width:100%;height:96px;overflow:visible"><path d="${d} L${W} ${H} L0 ${H}Z" fill="var(--gl)" opacity=".7"/><path d="${d}" fill="none" stroke="var(--g)" stroke-width="2"/><circle cx="${pts.at(-1)[0]}" cy="${pts.at(-1)[1]}" r="4" fill="var(--g)"/></svg>`}
+const nextR=()=>REW.find(r=>r[1]>S.pts)||REW.at(-1);
+function home(){const n=nextR();return `<div class="fade"><div style="padding:8px 0 4px"><div class="mu">Sustainability points</div><div class="big" style="font-size:64px;line-height:1.05;font-weight:600;letter-spacing:-.02em">${S.pts.toLocaleString('en')}</div><div class="sm"><span class="pl">+420</span> <span class="mu">this month · rank 38 of 4,210 on campus</span></div></div>
+<div style="margin:10px 0 2px">${chart()}<div class="mu sm" style="display:flex;justify-content:space-between"><span>Last 12 actions</span><span>Now</span></div></div>
+<h2>Next reward</h2><div class="box"><div style="display:flex;justify-content:space-between"><span class="b">${n[0]}</span><span class="mu">${Math.min(S.pts,n[1])} / ${n[1]}</span></div><div class="bar"><i style="width:${Math.min(100,S.pts/n[1]*100)}%"></i></div></div>
+<h2>Recent activity</h2><div>${S.hist.slice(0,4).map(h=>`<div class="row"><div class="grow"><div class="b sm">${h[0]}</div><div class="mu sm">${h[1]} · ${h[3]}</div></div>${fp(h[2])}</div>`).join('')}</div>
+<h2>Recent achievements</h2><div class="chips"><span class="chip">Cool head · 3/5</span><span class="chip">Own mug</span><span class="chip">Early booker</span></div></div>`}
+function rewards(){return `<div class="fade"><h2 style="margin-top:6px">Rewards</h2>${REW.map((r,i)=>{const ok=S.pts>=r[1];return `<div class="row"><div class="grow"><div class="b sm">${r[0]}</div><div class="bar"><i style="width:${Math.min(100,S.pts/r[1]*100)}%"></i></div><div class="mu sm" style="margin-top:3px">${ok?'Available now':r[1]-S.pts+' points to go'}</div></div><button class="btn s" ${ok?'':'disabled'} onclick="redeem(${i})">${r[1]}</button></div>`}).join('')}
+<h2>Achievements</h2>${ACH.map(a=>{const v=a[3]==1?S.sess>1?1:0:S[a[3]];const done=v>=a[2];return `<div class="row"><div class="sc" style="background:${done?'var(--g)':'var(--ln)'}">${done?'✓':'·'}</div><div class="grow"><div class="b sm">${a[0]}</div><div class="mu sm">${a[1]}</div>${done?'':`<div class="bar"><i style="width:${v/a[2]*100}%"></i></div>`}</div><span class="mu sm">${Math.min(v,a[2])}/${a[2]}</span></div>`}).join('')}
+<h2>Redemption history</h2>${S.redeemed.map(r=>`<div class="row"><div class="grow sm b">${r[0]}</div><span class="mu sm">${r[2]} · −${r[1]}</span></div>`).join('')}</div>`}
+function redeem(i){const r=REW[i];S.pts-=r[1];S.series.push(S.pts);S.redeemed.unshift([r[0],r[1],'Today']);S.hist.unshift(['Redeemed: '+r[0],'Rewards',-r[1],'Just now']);toast('Redeemed: '+r[0],-r[1]);draw()}
+function roomsHome(){const R=S.seg=='rooms';return `<div class="fade"><div class="seg"><button class="${R?'on':''}" onclick="S.seg='rooms';draw()">Find a room</button><button class="${R?'':'on'}" onclick="S.seg='mine';draw()">My bookings (${S.res.length})</button></div>`+(R?`
+<div class="chips" style="margin-bottom:6px">${DAYS.map((d,i)=>`<button class="chip ${S.day==i?'on':''}" onclick="S.day=${i};draw()">${d}</button>`).join('')}</div>
+${ROOMS.map(r=>{const f=TIMES.filter(t=>!booked(r.id,S.day,t)&&!past(S.day,t)).length;return `<div class="row" onclick="openRoom(${r.id})" style="cursor:pointer"><div class="grow"><div class="b">${r.n}</div><div class="mu sm">${r.loc}</div><div class="mu sm">${r.cap} ${r.cap>1?'seats':'seat'} · ${r.eq.join(', ')}</div></div><div style="text-align:right"><div class="sm b ${f?'pl':'mi'}">${f?f+' free':'Full'}</div><div class="mu sm">slots</div></div></div>`}).join('')}`:
+(S.res.length?S.res.map((x,i)=>`<div class="box" style="margin-bottom:10px"><div style="display:flex;justify-content:space-between"><span class="b">${x.room.n}</span><span class="tag">${DAYS[x.day]}</span></div><div class="mu sm">${x.time} – ${String(+x.time.slice(0,2)+1).padStart(2,'0')}:00 · ${x.room.loc}</div><div style="display:flex;gap:8px;margin-top:10px">${x.day==0?`<button class="btn s" onclick="startAccess(${i})">Open door</button>`:''}<button class="btn s 2" onclick="cancel(${i})">Cancel</button></div></div>`).join(''):'<p class="mu">No upcoming reservations.</p>')+`<h2>Past</h2><div class="row"><div class="grow sm b">Room B2.14<div class="mu" style="font-weight:400">Mon 9 Nov · 10:00</div></div>${fp(5)}</div><div class="row"><div class="grow sm b">Room S0.03<div class="mu" style="font-weight:400">Thu 5 Nov · 15:00</div></div>${fp(-3)}</div>`)+`</div>`}
+function openRoom(id){S.room=ROOMS.find(r=>r.id==id);S.time=null;S.rv='detail';draw()}
+function detail(){const r=S.room;return `<div class="fade"><button class="back" onclick="S.rv='list';draw()">‹ Rooms</button><h1>${r.n}</h1><div class="mu">${r.loc} · ${r.cap} seat${r.cap>1?'s':''}</div><div class="chips" style="margin:10px 0">${r.eq.map(e=>`<span class="tag">${e}</span>`).join('')}<span class="tag">Smart thermostat</span><span class="tag">Occupancy sensor</span></div>
+<h2>Day</h2><div class="chips">${DAYS.map((d,i)=>`<button class="chip ${S.day==i?'on':''}" onclick="S.day=${i};S.time=null;draw()">${d}</button>`).join('')}</div>
+<h2>Time slot</h2><div class="chips">${TIMES.map(t=>`<button class="chip ${S.time==t?'on':''}" ${booked(r.id,S.day,t)||past(S.day,t)?'disabled':''} onclick="S.time='${t}';draw()">${t}</button>`).join('')}</div>
+<div class="box" style="margin-top:18px"><div class="b sm">Energy tip</div><div class="mu sm">Sessions at 25°C or below earn +2. Switching off lights and equipment on departure earns another +3.</div></div>
+<div style="margin-top:16px;display:grid;gap:8px"><button class="btn" ${S.time?'':'disabled'} onclick="book()">${S.time?'Confirm '+DAYS[S.day]+' · '+S.time:'Select a time slot'}</button>${S.day==0?'<button class="btn 2" onclick="bookNow()">Book next free slot</button>':''}</div></div>`}
+function book(t){S.res.push({room:S.room,day:S.day,time:t||S.time});S.rv='list';S.seg='mine';toast('Reservation confirmed',0);draw()}
+function bookNow(){const t=TIMES.find(t=>!booked(S.room.id,0,t)&&!past(0,t));if(!t){toast('No free slot today',0);return}S.day=0;book(t)}
+function cancel(i){S.res.splice(i,1);draw()}
+function startAccess(i){S.ai=i;S.mode='nfc';S.rv='access';draw()}
+function access(){const x=S.res[S.ai],n=S.mode=='nfc';return `<div class="fade" style="text-align:center"><button class="back" style="float:left" onclick="S.rv='list';draw()">‹ Back</button><div style="clear:both"></div><h1>${x.room.n}</h1><div class="mu">${x.time} · ${DAYS[x.day]} · reservation found</div>
+<div class="seg" style="margin-top:18px"><button class="${n?'on':''}" onclick="S.mode='nfc';draw()">University card (NFC)</button><button class="${n?'':'on'}" onclick="S.mode='qr';draw()">Scan door QR</button></div>
+${n?'<div class="pulse" id="pz"><svg class="i" style="width:40px;height:40px" viewBox="0 0 24 24"><path d="M6 8a8 8 0 010 8M10 6a11 11 0 010 12M14 4a14 14 0 010 16"/></svg></div><p class="mu sm">Hold your phone or card near the reader at the door.</p>':'<div class="qr"></div><p class="mu sm">Point your camera at the code beside the door.</p>'}
+<button class="btn" style="margin-top:18px" onclick="validate()">${n?'Simulate NFC tap':'Simulate QR scan'}</button><div id="vm" class="sm" style="margin-top:14px"></div></div>`}
+function validate(){const v=document.getElementById('vm');v.innerHTML='<span class="mu">Validating reservation…</span>';setTimeout(()=>{v.innerHTML='<span class="pl">✓ Reservation validated · Door unlocked</span>';setTimeout(()=>{const x=S.res[S.ai];S.ses={room:x.room,t:21,lights:1,mon:1,proj:x.room.eq.includes('Projector')?1:0,adj:0};S.res.splice(S.ai,1);S.rv='ses';draw()},900)},1100)}
+function proj(){const s=S.ses;let p=s.t<=25?2:-3;return p}
+function ses(){const s=S.ses,hot=s.t>25,r=s.room;const tg=(k,l,sub)=>`<div class="row"><div class="grow"><div class="b sm">${l}</div><div class="mu sm">${sub}</div></div><button class="tg ${s[k]?'on':''}" onclick="tgl('${k}')" aria-label="${l}"></button></div>`;
+return `<div class="fade"><div style="display:flex;justify-content:space-between;align-items:start"><div><h1>${r.n}</h1><div class="mu">Session in progress · 00:${String(12+s.adj).padStart(2,'0')}</div></div><span class="tag" style="color:var(--g);border-color:var(--g)">Unlocked</span></div>
+<div class="box" style="margin-top:14px;text-align:center"><div class="mu sm">Thermostat</div><div style="display:flex;justify-content:center;align-items:center;gap:22px"><button class="chip" style="font-size:20px;width:46px" onclick="temp(-1)">−</button><div class="big" style="font-size:56px;font-weight:600;color:${hot?'var(--lo)':'var(--ink)'}">${s.t}°</div><button class="chip" style="font-size:20px;width:46px" onclick="temp(1)">+</button></div>
+<div class="sm ${hot?'mi':'pl'}">${hot?'Above 25°C · −3 if left this way':'Within 25°C · +2 on departure'}</div></div>
+<h2>Equipment</h2>${tg('lights','Lighting',s.lights?'On · 4 panels':'Off')}${tg('mon','Monitors',s.mon?'On · standby draw 38 W':'Off')}${r.eq.includes('Projector')?tg('proj','Projector',s.proj?'On · 210 W':'Off'):''}
+<h2>Live estimate</h2><div class="box"><div class="row" style="padding-top:0"><span class="grow sm">Setpoint ${s.t}°C</span>${fp(proj())}</div><div class="row"><span class="grow sm">Lights ${s.lights?'on':'off'} at departure</span>${fp(s.lights?-2:2)}</div><div class="row" style="border:0;padding-bottom:0"><span class="grow sm">Equipment ${s.mon||s.proj?'running':'off'} at departure</span>${fp(s.mon||s.proj?-2:2)}</div></div>
+<button class="btn" style="margin-top:16px" onclick="leave()">End session and leave</button></div>`}
+function temp(d){const s=S.ses;const was=s.t>25;s.t=Math.max(16,Math.min(30,s.t+d));s.adj++;const is=s.t>25;if(was!=is)toast(is?'Above 25°C':'Back within 25°C',is?-3:2);draw()}
+function tgl(k){const s=S.ses;s[k]=s[k]?0:1;if(!s[k]){toast('Switched off',2)}draw()}
+function leave(){const s=S.ses;if(s.lights||s.mon||s.proj){S.rv='check'}else finish();draw()}
+function check(){const s=S.ses,l=[s.lights&&'Lights',s.mon&&'Monitors',s.proj&&'Projector'].filter(Boolean);return `<div class="fade"><h1>Before you go</h1><p class="mu" style="margin:6px 0 16px">Still running in ${S.ses.room.n}: <b>${l.join(', ')}</b>. Leaving them on costs 2 points each category.</p><div style="display:grid;gap:8px"><button class="btn" onclick="S.ses.lights=0;S.ses.mon=0;S.ses.proj=0;finish();draw()">Switch everything off and leave</button><button class="btn 2" onclick="finish();draw()">Leave as is</button><button class="btn 2" onclick="S.rv='ses';draw()">Back to room</button></div></div>`}
+function finish(){const s=S.ses,it=[['Thermostat '+s.t+'°C',proj()],['Lights '+(s.lights?'left on':'switched off'),s.lights?-2:2],['Equipment '+(s.mon||s.proj?'left running':'switched off'),s.mon||s.proj?-2:2]];const tot=it.reduce((a,b)=>a+b[1],0);
+S.sum={it,tot,kwh:(s.t<=25?.4:-.3)+(s.lights?-.1:.2)+(s.mon||s.proj?-.3:.5)+0.9};S.sess++;if(s.t<=25)S.cool++;if(!s.lights&&!s.mon&&!s.proj)S.out++;add('Study room session '+s.room.n,'Study rooms',tot);S.ses=null;S.rv='sum'}
+function summary(){const m=S.sum;return `<div class="fade"><div class="mu" style="margin-top:14px">Session complete</div><div class="big" style="font-size:60px;font-weight:600;line-height:1.1;color:${m.tot>=0?'var(--g)':'var(--lo)'}">${m.tot>=0?'+':'−'}${Math.abs(m.tot)}</div><div class="mu">New balance ${S.pts.toLocaleString('en')} points</div>
+<div class="box" style="margin:18px 0">${m.it.map(i=>`<div class="row"><span class="grow sm">${i[0]}</span>${fp(i[1])}</div>`).join('')}</div><div class="sm">Estimated saving versus an average session: <b>${Math.max(0,m.kwh).toFixed(1)} kWh</b></div><p class="mu sm" style="margin-top:6px">Recorded in your points history.</p><button class="btn" style="margin-top:18px" onclick="S.rv='list';S.seg='rooms';draw()">Done</button></div>`}
+const MENU=[['Lentil & roasted veg bowl','Vegan · regional',['A',0.6],4],['Pumpkin risotto','Vegetarian · regional',['A',0.9],4],['Falafel wrap','Vegan',['B',1.1],3],['Chicken schnitzel','Poultry · regional',['C',2.4],0],['Beef burger','Beef · imported',['E',6.8],-2]];
+const COL={A:'#2f7a4f',B:'#6a9a3c',C:'#c0932f',D:'#c46b2e',E:'#a8402a'};
+function cafe(){return `<div class="fade"><h2 style="margin-top:6px">Today’s menu</h2>${MENU.map((m,i)=>`<div class="row"><div class="sc" style="background:${COL[m[2][0]]}">${m[2][0]}</div><div class="grow"><div class="b sm">${m[0]}</div><div class="mu sm">${m[1]} · ${m[2][1]} kg CO₂e</div></div><button class="btn s ${S.meal==i?'':'2'}" onclick="meal(${i})">${S.meal==i?'Chosen':m[3]>0?'+'+m[3]:m[3]<0?'−'+Math.abs(m[3]):'0'}</button></div>`).join('')}
+<div class="box" style="margin-top:8px"><div class="b sm">Recommended for you</div><div class="mu sm">The lentil bowl saves about 6 kg CO₂e compared with the burger.</div></div>
+<h2>Tray return</h2><div class="box"><div class="mu sm">Simulated scan · leftover <b id="lv">20</b>%</div><input type="range" min="0" max="100" value="20" oninput="document.getElementById('lv').textContent=this.value"><button class="btn" style="margin-top:8px" onclick="tray()">Scan tray</button></div>
+<h2>Campus services</h2><div class="row"><div class="grow sm"><div class="b">Coffee machine</div><div class="mu">Tap your phone with a reusable mug</div></div><button class="btn s" onclick="mug()">+2</button></div>
+<div class="row"><div class="grow sm"><div class="b">Vending machine</div><div class="mu">Plastic bottles cost 2 points</div></div><button class="btn s 2" onclick="bot(-2)">Buy</button></div>
+<div class="row"><div class="grow sm"><div class="b">Bottle return machine</div><div class="mu">Deposit scheme · ${S.bot} bought, recover points</div></div><button class="btn s" onclick="bot(2)">Return</button></div></div>`}
+function meal(i){if(S.meal==i)return;S.meal=i;const m=MENU[i];if(m[3]>0)S.veg++;add(m[0],'Cafeteria',m[3]);toast(m[0],m[3]||0);draw()}
+function tray(){const v=+document.querySelector('input[type=range]').value,p=v<=10?4:v>40?-3:0;if(p)add('Tray returned, '+v+'% leftover','Cafeteria',p);if(v<=10)S.tray++;toast(p?('Tray scan: '+v+'% leftover'):'Tray scan: '+v+'% leftover, no change',p||0);draw()}
+function mug(){S.mug++;add('Reusable mug','Coffee machine',2);toast('Reusable mug',2);draw()}
+function bot(p){if(p<0)S.bot++;else if(S.bot<1){toast('Buy a bottle first to return one',0);return}else S.bot--;add(p<0?'Plastic bottle purchased':'Bottle returned',p<0?'Vending':'Recycling',p);toast(p<0?'Plastic bottle':'Bottle returned',p);draw()}
+function draw(){const t=S.tab;let h,title={home:'Verde Campus',rewards:'Rewards',rooms:'Study rooms',cafe:'Cafeteria'}[t];
+if(t=='home')h=home();else if(t=='rewards')h=rewards();else if(t=='cafe')h=cafe();else h={list:roomsHome,detail,access,ses,check,sum:summary}[S.rv]();
+const locked=t=='rooms'&&['ses','check','sum'].includes(S.rv);
+document.getElementById('app').innerHTML=`<div class="top"><div><div class="mu sm">${t=='home'?'Good afternoon, Mira':'Verde Campus'}</div><h1>${title}</h1></div><div class="sc" style="background:var(--g)">M</div></div><main>${h}</main><nav>${[['home','Home','home'],['rewards','Rewards','award'],['rooms','Study rooms','door'],['cafe','Cafeteria','cafe']].map(n=>`<button class="${t==n[0]?'on':''}" onclick="S.tab='${n[0]}';draw()">${ico(n[2])}${n[1]}</button>`).join('')}</nav>`;
+}
+draw();
+</script></body></html>
