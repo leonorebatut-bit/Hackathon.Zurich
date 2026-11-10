@@ -156,7 +156,7 @@ function bot(p){if(p<0)S.bot++;else if(S.bot<1){toast('Buy a bottle first to ret
 function draw(){const t=S.tab;let h,title={home:'HEIDI',rewards:'Rewards',rooms:'Study rooms',cafe:'Cafeteria'}[t];
 if(t=='home')h=home();else if(t=='rewards')h=rewards();else if(t=='cafe')h=cafe();else h={list:roomsHome,detail,access,ses,check,sum:summary}[S.rv]();
 const locked=t=='rooms'&&['ses','check','sum'].includes(S.rv);
-document.getElementById('app').innerHTML=`<div class="top"><div><div class="mu sm">${t=='home'?'Good afternoon, Mira':'HEIDI'}</div><h1>${title}</h1></div><img class="brand-logo" src="HEIDI.png" alt="HEIDI logo"></div><main>${h}</main><nav>${[['home','Home','home'],['rewards','Rewards','award'],['rooms','Study rooms','door'],['cafe','Cafeteria','cafe']].map(n=>`<button class="${t==n[0]?'on':''}" onclick="S.tab='${n[0]}';draw()">${ico(n[2])}${n[1]}</button>`).join('')}</nav>`;
+document.getElementById('app').innerHTML=`<div class="top"><div><div class="mu sm">${t=='home'?'Your campus companion to cut waste':'University of ZHAW'}</div><h1>${title}</h1></div><img class="brand-logo" src="HEIDI.png" alt="HEIDI logo"></div><main>${h}</main><nav>${[['home','Home','home'],['rewards','Rewards','award'],['rooms','Study rooms','door'],['cafe','Cafeteria','cafe']].map(n=>`<button class="${t==n[0]?'on':''}" onclick="S.tab='${n[0]}';draw()">${ico(n[2])}${n[1]}</button>`).join('')}</nav>`;
 }
 draw();
 </script></body></html>
