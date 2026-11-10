@@ -1,9 +1,9 @@
 # Hackathon.Zurich
-# Verde Campus
+# HEIDI
 
 *Small habits. Real rewards.*
 
-Verde Campus is a mobile application concept that helps university students reduce their environmental footprint in everyday campus life. Sustainable actions earn points, wasteful ones cost points, and points are exchanged for tangible campus benefits.
+Heidi is a mobile application concept that helps university students reduce their environmental footprint in everyday campus life. Sustainable actions earn points, wasteful ones cost points, and points are exchanged for tangible campus benefits.
 
 > This is a fictional concept prototype created for a presentation. All data, NFC/QR validation, sensors and rewards are simulated.
 
