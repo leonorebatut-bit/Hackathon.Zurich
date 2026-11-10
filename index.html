@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8"><title>HEIDI</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -19,7 +20,7 @@
   color-scheme: light;
 }
 
-* {
+*{
   box-sizing: border-box;
   margin: 0;
   -webkit-tap-highlight-color: transparent;
@@ -70,8 +71,11 @@ svg.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stro
 .fade{animation:f .25s}@keyframes f{from{opacity:0;transform:translateY(6px)}}
 .qr{width:150px;height:150px;margin:14px auto;background:repeating-conic-gradient(var(--ink) 0 25%,var(--sf) 0 50%) 0 0/20px 20px;border:8px solid var(--sf);outline:1px solid var(--ln)}
 input[type=range]{width:100%;accent-color:var(--g)}
+.modal-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(2,10,28,0.6);display:grid;place-items:center;z-index:99;padding:20px;backdrop-filter:blur(4px)}
+.modal-card{background:var(--sf);border-radius:20px;padding:20px;width:100%;max-width:340px;text-align:center;box-shadow:0 10px 25px rgba(0,0,0,0.15)}
+.modal-card img{width:100%;height:220px;object-fit:cover;border-radius:12px;margin:12px 0;border:1px solid var(--ln)}
 </style></head><body>
-<div class="ph"><div id="toast"></div><div id="app" style="display:flex;flex-direction:column;flex:1;min-height:0"></div></div>
+<div class="ph"><div id="toast"></div><div id="modal-container"></div><div id="app" style="display:flex;flex-direction:column;flex:1;min-height:0"></div></div>
 <script>
 const IC={home:'<path d="M3 11l9-8 9 8v10h-6v-6H9v6H3z"/>',award:'<circle cx="12" cy="9" r="6"/><path d="M8.5 14l-1.5 7 5-3 5 3-1.5-7"/>',door:'<path d="M5 21V4h10v17M3 21h18M12 12h.01"/>',cafe:'<path d="M4 8h13v6a5 5 0 01-5 5H9a5 5 0 01-5-5zM17 9h2a2 2 0 010 5h-2M7 2v3M11 2v3"/>'};
 const ico=n=>`<svg class="i" viewBox="0 0 24 24">${IC[n]}</svg>`;
@@ -87,7 +91,7 @@ hist:[['Vegetarian lunch','Cafeteria',4,'Today, 12:35'],['Reusable mug','Coffee 
 res:[{room:ROOMS[1],day:0,time:'14:00'}],redeemed:[['Public transport day ticket',300,'12 Oct']],ses:null,sess:1,cool:3,meal:null,mug:0,bot:0};
 const booked=(r,d,t)=>S.res.some(x=>x.room.id==r&&x.day==d&&x.time==t)||((r*7+d*3+TIMES.indexOf(t)*5)%4==0);
 const past=(d,t)=>d==0&&t<'13:40';
-const REW=[['Free cafeteria lunch',400],['Public transport day ticket',300],['Printing credit CHF 10',600],['Student-fee reduction CHF 25',1500],['Semester pass discount CHF 100',3500]];
+const REW=[['Cute dog picture 🐶',100],['Public transport day ticket',300],['Printing credit CHF 10',600],['Student-fee reduction CHF 25',1500],['Semester pass discount CHF 100',3500]];
 const ACH=[['First session','Complete your first study-room session',1,1],['Cool head','5 sessions with the thermostat at 25°C or below',5,'cool'],['Last out, lights off','10 departures with everything switched off',10,'out'],['Own mug','Use a reusable mug 10 times',10,'mug'],['Plant-forward','Choose 15 vegetarian meals',15,'veg'],['Clean tray','Return 10 near-empty trays',10,'tray']];
 S.out=7;S.veg=11;S.tray=6;
 function toast(m,p){const t=document.getElementById('toast');t.innerHTML=`<span>${m}</span><b>${p>0?'+':'−'}${Math.abs(p)}</b>`;t.className='s';clearTimeout(toast.t);toast.t=setTimeout(()=>t.className='',2200)}
@@ -105,7 +109,33 @@ function home(){const n=nextR();return `<div class="fade"><div style="padding:8p
 function rewards(){return `<div class="fade"><h2 style="margin-top:6px">Rewards</h2>${REW.map((r,i)=>{const ok=S.pts>=r[1];return `<div class="row"><div class="grow"><div class="b sm">${r[0]}</div><div class="bar"><i style="width:${Math.min(100,S.pts/r[1]*100)}%"></i></div><div class="mu sm" style="margin-top:3px">${ok?'Available now':r[1]-S.pts+' points to go'}</div></div><button class="btn s" ${ok?'':'disabled'} onclick="redeem(${i})">${r[1]}</button></div>`}).join('')}
 <h2>Achievements</h2>${ACH.map(a=>{const v=a[3]==1?S.sess>1?1:0:S[a[3]];const done=v>=a[2];return `<div class="row"><div class="sc" style="background:${done?'var(--g)':'var(--ln)'}">${done?'✓':'·'}</div><div class="grow"><div class="b sm">${a[0]}</div><div class="mu sm">${a[1]}</div>${done?'':`<div class="bar"><i style="width:${v/a[2]*100}%"></i></div>`}</div><span class="mu sm">${Math.min(v,a[2])}/${a[2]}</span></div>`}).join('')}
 <h2>Redemption history</h2>${S.redeemed.map(r=>`<div class="row"><div class="grow sm b">${r[0]}</div><span class="mu sm">${r[2]} · −${r[1]}</span></div>`).join('')}</div>`}
-function redeem(i){const r=REW[i];S.pts-=r[1];S.series.push(S.pts);S.redeemed.unshift([r[0],r[1],'Today']);S.hist.unshift(['Redeemed: '+r[0],'Rewards',-r[1],'Just now']);toast('Redeemed: '+r[0],-r[1]);draw()}
+function redeem(i){
+  const r=REW[i];
+  S.pts-=r[1];
+  S.series.push(S.pts);
+  S.redeemed.unshift([r[0],r[1],'Today']);
+  S.hist.unshift(['Redeemed: '+r[0],'Rewards',-r[1],'Just now']);
+  toast('Redeemed: '+r[0],-r[1]);
+  
+  if(i === 0) {
+    showDogModal();
+  }
+  draw();
+}
+function showDogModal() {
+  const mc = document.getElementById('modal-container');
+  mc.innerHTML = `<div class="modal-overlay" onclick="closeModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+      <h2>Unlocked: Dog.jpg! 🐶</h2>
+      <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=600&q=80" alt="Cute dog">
+      <p class="mu sm" style="margin-bottom:14px">Here is your cute reward for being sustainable!</p>
+      <button class="btn s" onclick="closeModal()">Awesome!</button>
+    </div>
+  </div>`;
+}
+function closeModal() {
+  document.getElementById('modal-container').innerHTML = '';
+}
 function roomsHome(){const R=S.seg=='rooms';return `<div class="fade"><div class="seg"><button class="${R?'on':''}" onclick="S.seg='rooms';draw()">Find a room</button><button class="${R?'':'on'}" onclick="S.seg='mine';draw()">My bookings (${S.res.length})</button></div>`+(R?`
 <div class="chips" style="margin-bottom:6px">${DAYS.map((d,i)=>`<button class="chip ${S.day==i?'on':''}" onclick="S.day=${i};draw()">${d}</button>`).join('')}</div>
 ${ROOMS.map(r=>{const f=TIMES.filter(t=>!booked(r.id,S.day,t)&&!past(S.day,t)).length;return `<div class="row" onclick="openRoom(${r.id})" style="cursor:pointer"><div class="grow"><div class="b">${r.n}</div><div class="mu sm">${r.loc}</div><div class="mu sm">${r.cap} ${r.cap>1?'seats':'seat'} · ${r.eq.join(', ')}</div></div><div style="text-align:right"><div class="sm b ${f?'pl':'mi'}">${f?f+' free':'Full'}</div><div class="mu sm">slots</div></div></div>`}).join('')}`:
@@ -160,3 +190,5 @@ document.getElementById('app').innerHTML=`<div class="top"><div><div class="mu s
 }
 draw();
 </script></body></html>
+
+```
