@@ -3,10 +3,61 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f4f1ea;--sf:#fbfaf6;--ink:#1c2a24;--mu:#6b766f;--ln:#dcd8cc;--g:#1f5c43;--gl:#dbe8df;--lo:#b4532a;--ll:#f2dfd4;--on:#fff;color-scheme:light}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#101613;--sf:#18211c;--ink:#e8ece6;--mu:#93a098;--ln:#2b3630;--g:#6fbf95;--gl:#1f3329;--lo:#e0865a;--ll:#3a2519;--on:#0f1a14;color-scheme:dark}}
-:root[data-theme=dark]{--bg:#101613;--sf:#18211c;--ink:#e8ece6;--mu:#93a098;--ln:#2b3630;--g:#6fbf95;--gl:#1f3329;--lo:#e0865a;--ll:#3a2519;--on:#0f1a14;color-scheme:dark}
-*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+:root {
+  --bg: #f8f7f0;
+  --sf: #ffffff;
+  --ink: #104911;
+  --mu: #61735b;
+  --ln: #dce5d5;
+  --g: #548c2f;
+  --gl: #e5efd9;
+  --lo: #f9a620;
+  --ll: #fff0d2;
+  --on: #ffffff;
+  --blue: #a8d5e2;
+  --mustard: #ffd449;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme=light]) {
+    --bg: #101c12;
+    --sf: #19291a;
+    --ink: #edf3e8;
+    --mu: #a9b9a0;
+    --ln: #344b32;
+    --g: #8bbd63;
+    --gl: #263d23;
+    --lo: #f9a620;
+    --ll: #493519;
+    --on: #101c12;
+    --blue: #a8d5e2;
+    --mustard: #ffd449;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme=dark] {
+  --bg: #101c12;
+  --sf: #19291a;
+  --ink: #edf3e8;
+  --mu: #a9b9a0;
+  --ln: #344b32;
+  --g: #8bbd63;
+  --gl: #263d23;
+  --lo: #f9a620;
+  --ll: #493519;
+  --on: #101c12;
+  --blue: #a8d5e2;
+  --mustard: #ffd449;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  -webkit-tap-highlight-color: transparent;
+}
 html,body{height:100%}
 body{background:var(--bg);color:var(--ink);font:15px/1.4 'Instrument Sans',system-ui,sans-serif;display:flex;justify-content:center;align-items:center}
 .ph{width:100%;max-width:410px;height:100%;max-height:840px;background:var(--bg);display:flex;flex-direction:column;position:relative;overflow:hidden;padding-top:env(safe-area-inset-top,0px)}
